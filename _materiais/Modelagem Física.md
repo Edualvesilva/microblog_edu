@@ -1,7 +1,7 @@
 # Modelagem Física do Microblog
 
 ```sql
-CREATE DATABASE microblog_seunome CHARACTER SET utf8mb4;
+CREATE DATABASE microblog_edu CHARACTER SET utf8mb4;
 ```
 
 ```sql

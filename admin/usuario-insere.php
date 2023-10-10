@@ -10,9 +10,8 @@ if(isset($_POST['inserir'])){
 	Depois, pegamos o retorno (já codificado) e repassamos ao setter */
 	$usuario->setSenha($usuario->codificaSenha($_POST['senha'])); 
 
-	echo $usuario->getNome();
-	echo $usuario->getSenha();
-	echo $usuario->getTipo();
+	$usuario->inserir();
+	header("location:usuarios.php");
 }
 ?>
 

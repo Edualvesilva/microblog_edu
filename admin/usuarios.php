@@ -1,6 +1,7 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
 use Microblog\Usuario;
+use Microblog\Utilitarios;
 $usuario = new Usuario;
 
 /* Como $usuario retorna algo ele precosa ser colocado em uma variável */

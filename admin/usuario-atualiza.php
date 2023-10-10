@@ -1,5 +1,7 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
+use Microblog\Usuario;
+
 ?>
 
 

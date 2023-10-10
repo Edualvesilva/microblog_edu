@@ -1,13 +1,17 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
-?>
+use Microblog\Usuario;
+$usuario = new Usuario;
 
+/* Como $usuario retorna algo ele precosa ser colocado em uma variável */
+$listaUsuarios = $usuario->listar();
+?>
 
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
 		<h2 class="text-center">
-		Usuários <span class="badge bg-dark">X</span>
+		Usuários <span class="badge bg-dark"><?=count($listaUsuarios)?></span>
 		</h2>
 
 		<p class="text-center mt-5">
@@ -30,10 +34,13 @@ require_once "../inc/cabecalho-admin.php";
 
 				<tbody>
 
+					<?php
+						foreach($listaUsuarios as $itemUsuario){
+							?>
 					<tr>
-						<td> Nome... </td>
-						<td> E-mail... </td>
-						<td> Tipo... </td>
+						<td> <?=$itemUsuario["nome"]?> </td>
+						<td> <?=$itemUsuario["email"]?> </td>
+						<td> <?=$itemUsuario["tipo"]?> </td>
 						<td class="text-center">
 							<a class="btn btn-warning" 
 							href="usuario-atualiza.php">
@@ -46,7 +53,7 @@ require_once "../inc/cabecalho-admin.php";
 							</a>
 						</td>
 					</tr>
-
+						<?php }?>
 				</tbody>                
 			</table>
 	</div>

@@ -41,6 +41,20 @@ class Usuario {
     return password_hash($senha,PASSWORD_DEFAULT);
   }
 
+
+  public function listar():array{
+    $sql = "SELECT * FROM usuarios ORDER BY nome";
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->execute();
+        $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Error $erro) {
+        die("Erro ao inserir usuário: ".$erro->getMessage());
+    }
+   return $resultado;
+  }
+ 
+
     public function getId(): int
     {
         return $this->id;

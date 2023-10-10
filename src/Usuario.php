@@ -1,5 +1,7 @@
 <?php
 namespace Microblog;
+
+use Error;
 use PDO, Exception;
 class Usuario {
     private int $id;
@@ -14,7 +16,27 @@ class Usuario {
   }
 
 
-   
+  /* Métodos para rotinas de CRUD no Banco */ 
+
+  // Insert do Usuario
+  public function inserir():void{
+    $sql = "INSERT INTO usuarios(nome,email,senha,tipo)
+    VALUES (:nome,:email,:senha,:tipo)";
+
+    try {
+        $consulta = $this->conexao->prepare($sql);
+        $consulta->bindValue(":nome",$this->nome,PDO::PARAM_STR);
+        $consulta->bindValue(":email",$this->email,PDO::PARAM_STR);
+        $consulta->bindValue(":senha",$this->senha,PDO::PARAM_STR);
+        $consulta->bindValue(":tipo",$this->tipo,PDO::PARAM_STR);
+        $consulta->execute();
+    } catch (Error $erro) {
+        die("Erro ao inserir usuário: ".$erro->getMessage());
+    }
+  }
+
+
+
     public function getId(): int
     {
         return $this->id;
@@ -84,8 +106,4 @@ class Usuario {
     }
 
 
-} 
-
-
-
-?>
+}

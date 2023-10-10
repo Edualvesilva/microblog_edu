@@ -30,15 +30,16 @@ class Usuario {
         $consulta->bindValue(":senha",$this->senha,PDO::PARAM_STR);
         $consulta->bindValue(":tipo",$this->tipo,PDO::PARAM_STR);
         $consulta->execute();
-    } catch (Error $erro) {
+    } catch (Exception $erro) {
         die("Erro ao inserir usuário: ".$erro->getMessage());
     }
   }
 
 
-  // 
-
-
+  /* Métodos para codificação de senha */
+  public function codificaSenha(string $senha):string{
+    return password_hash($senha,PASSWORD_DEFAULT);
+  }
 
     public function getId(): int
     {
@@ -48,7 +49,7 @@ class Usuario {
    
     public function setId(int $id): self
     {
-        $this->id = $id;
+        $this->id = filter_var($id.FILTER_SANITIZE_NUMBER_INT);
 
         return $this;
     }
@@ -61,7 +62,7 @@ class Usuario {
   
     public function setNome(string $nome): self
     {
-        $this->nome = $nome;
+        $this->nome = filter_var($nome,FILTER_SANITIZE_SPECIAL_CHARS);
 
         return $this;
     }
@@ -75,7 +76,7 @@ class Usuario {
   
     public function setEmail(string $email): self
     {
-        $this->email = $email;
+        $this->email = filter_var($email,FILTER_SANITIZE_EMAIL);
 
         return $this;
     }
@@ -89,7 +90,7 @@ class Usuario {
     
     public function setSenha(string $senha): self
     {
-        $this->senha = $senha;
+        $this->senha = filter_var($senha,FILTER_SANITIZE_SPECIAL_CHARS);
 
         return $this;
     }
@@ -103,7 +104,7 @@ class Usuario {
    
     public function setTipo(string $tipo): self
     {
-        $this->tipo = $tipo;
+        $this->tipo = filter_var($tipo,FILTER_SANITIZE_SPECIAL_CHARS);
 
         return $this;
     }

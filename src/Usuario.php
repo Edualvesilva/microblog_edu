@@ -56,11 +56,11 @@ class Usuario
 
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindValue(":id",$this->id,PDO::PARAM_INT);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
             $consulta->execute();
-            $resultado = $consulta->fetch(PDo::FETCH_ASSOC);
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
-            die("Erro ao carregar dados: " . $erro->getMessage());
+            die("Erro ao carregar dados: " .$erro->getMessage());
         }
         return $resultado;
     }
@@ -87,7 +87,7 @@ class Usuario
 
     public function setId(int $id): self
     {
-        $this->id = filter_var($id . FILTER_SANITIZE_NUMBER_INT);
+        $this->id = filter_var($id , FILTER_SANITIZE_NUMBER_INT);
 
         return $this;
     }

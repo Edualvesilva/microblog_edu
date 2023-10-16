@@ -65,6 +65,25 @@ class Usuario
         return $resultado;
     }
 
+    // UPDATE de usuário 
+    public function atualizar(){
+        $sql = "UPDATE usuarios SET nome = :nome, email = :email , senha = :senha, tipo = :tipo WHERE id = :id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":id",$this->id,PDO::PARAM_INT);
+            $consulta->bindValue(":nome",$this->nome,PDO::PARAM_STR);
+            $consulta->bindValue(":email",$this->email,PDO::PARAM_STR);
+            $consulta->bindValue(":senha",$this->senha,PDO::PARAM_INT);
+            $consulta->bindValue(":tipo",$this->tipo,PDO::PARAM_INT);
+            $consulta->execute();
+        } catch (Exception $erro) {
+            die("Erro ao Atualizar usuário: ".$erro->getMessage());
+        }
+
+    }
+
+
     public function listar(): array
     {
         $sql = "SELECT * FROM usuarios ORDER BY nome";

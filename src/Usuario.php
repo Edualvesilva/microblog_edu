@@ -41,13 +41,26 @@ class Usuario
     }
 
 
-
-
     /* Métodos para codificação de senha */
     public function codificaSenha(string $senha): string
     {
         return password_hash($senha, PASSWORD_DEFAULT);
     }
+
+    public function verificaSenha($senhaFormulario,$senhaBanco): string{
+        /* Usamos a função password_verify para COMPARAR as duas senhas: a digitada no formulário e a existente no banco de dados */
+        if(password_verify($senhaFormulario, $senhaBanco)){
+            /* Se forem iguais, mantemos a senha já existente, sem qualquer modificação */
+            return $senhaBanco;
+        } else {
+            /* Se forem DIFERENTES, então a nova senha (ou seja,a que foi digitada no formulário) DEVE ser codificada. */
+            return $this->codificaSenha($senhaFormulario);
+        };
+
+        
+    }
+
+
 
     // SELECT de Usuário 
     public function listarUM(): array
@@ -74,8 +87,8 @@ class Usuario
             $consulta->bindValue(":id",$this->id,PDO::PARAM_INT);
             $consulta->bindValue(":nome",$this->nome,PDO::PARAM_STR);
             $consulta->bindValue(":email",$this->email,PDO::PARAM_STR);
-            $consulta->bindValue(":senha",$this->senha,PDO::PARAM_INT);
-            $consulta->bindValue(":tipo",$this->tipo,PDO::PARAM_INT);
+            $consulta->bindValue(":senha",$this->senha,PDO::PARAM_STR);
+            $consulta->bindValue(":tipo",$this->tipo,PDO::PARAM_STR);
             $consulta->execute();
         } catch (Exception $erro) {
             die("Erro ao Atualizar usuário: ".$erro->getMessage());

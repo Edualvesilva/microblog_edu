@@ -3,18 +3,34 @@ require_once "../inc/cabecalho-admin.php";
 
 use Microblog\Usuario;
 
+/* Script para carregamento */
 $usuario = new Usuario;
 $usuario->setId($_GET["id"]);
-
-
 $recebeUsuario = $usuario->listarUM();
+
+/* Script para atualização */
 if (isset($_POST["atualizar"])) {
 	$usuario->setNome($_POST["nome"]);
 	$usuario->setEmail($_POST["email"]);
-	$usuario->setSenha($_POST["senha"]);
 	$usuario->setTipo($_POST["tipo"]);
+
+	/* Algoritmo geral para tratamento de senha */
+
+	/* Se o campo senha no formulário estiver vazio, significa que o usuário NÃO MUDOU A SENHA */
+	if(empty($_POST["senha"])){
+		/* Portanto, simplesmente repassamos a senha já existente no banco ($recebeUsuario["senha"]) para o objeto atráves do setSenha, sem qualquer alteração */
+		$usuario->setSenha($recebeUsuario["senha"]);
+	} else {
+		/* Caso contrário, se o usuário digitou alguma coisa no campo, Precisaremos verificar o que foi digitado */
+		$usuario->setSenha($usuario->verificaSenha($_POST["senha"],$recebeUsuario["senha"]));
+	}
+
+	$usuario->atualizar();
 	header("location:usuarios.php");
+	
+
 }
+
 ?>
 
 
@@ -39,7 +55,7 @@ if (isset($_POST["atualizar"])) {
 
 			<div class="mb-3">
 				<label class="form-label" for="senha">Senha:</label>
-				<input class="form-control" type="password" id="senha" name="senha" value="<?= $recebeUsuario["senha"] ?>" placeholder="Preencha apenas se for alterar">
+				<input class="form-control" type="password" id="senha" name="senha" placeholder="Preencha apenas se for alterar">
 			</div>
 
 			<div class="mb-3">

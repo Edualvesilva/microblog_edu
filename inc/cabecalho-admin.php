@@ -7,6 +7,9 @@ $sessao = new ControleDeAcesso;
 
 /* Executando o método que verifica se tem alguém logado */
 $sessao->verificaAcesso();
+
+/* se o parâmetro "sair" existir (algo que acontece quando o usuário clica no link "sair"), então faça o logout do sistema. */
+ if(isset($_GET["sair"])) $sessao->logout();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
@@ -55,7 +58,7 @@ $sessao->verificaAcesso();
                 <a class="nav-link" href="../index.php" target="_blank">Área pública</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link fw-bold" href=""> <i class="bi bi-x-circle"></i> Sair</a>
+                <a class="nav-link fw-bold" href="?sair"> <i class="bi bi-x-circle"></i> Sair</a>
             </li>
         </ul>
 

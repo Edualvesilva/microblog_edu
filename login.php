@@ -7,8 +7,12 @@ use Microblog\{ControleDeAcesso, Usuario, Utilitarios};
 
 if (isset($_GET["campos_obrigatorios"])) {
 	$feedback = "Você deve preencher os dois campos!";
-} else if (isset($_GET["dados_incorretos"])) {
+} elseif (isset($_GET["dados_incorretos"])) {
 	$feedback = "Dados Incorretos!!";
+} elseif (isset($_GET["logout"])) {
+	$feedback = "Você saiu do sistema!";
+} elseif(isset($_GET["acesso_proibido"])){
+	$feedback = "Você deve logar primeiro";
 }
 ?>
 
@@ -51,7 +55,7 @@ if (isset($_GET["campos_obrigatorios"])) {
 				} else {
 					if (password_verify($_POST["senha"], $dados["senha"])) {
 						$sessao = new ControleDeAcesso;
-						$sessao->login($dados["id"],$dados["nome"],$dados["tipo"]);
+						$sessao->login($dados["id"], $dados["nome"], $dados["tipo"]);
 						header("location:admin/index.php");
 					} else {
 						header("location:login.php?dados_incorretos");

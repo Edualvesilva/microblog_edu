@@ -16,7 +16,7 @@ final class ControleDeAcesso {
         if(!isset($_SESSION['id'])){
             /* ...então destrua qualquer resquício de sessão, redirecione para o formulário de login e pare completamente o script. */
             session_destroy();
-            header("location:../login.php");
+            header("location:../login.php?acesso_proibido");
             die(); // ou exit
         }
     }

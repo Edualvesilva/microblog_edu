@@ -35,7 +35,11 @@ if(isset($_POST['entrar'])){
 	if(empty($_POST["email"]) || empty($_POST["senha"])){
 		header("location:login.php?campos_obrigatorios");
 	} else {
-		echo "Ok, pode logar...";
+		$usuario = new Usuario;
+		$usuario->setEmail($_POST["email"]);
+		
+
+
 	}
 }
 ?>

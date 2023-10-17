@@ -47,17 +47,16 @@ class Usuario
         return password_hash($senha, PASSWORD_DEFAULT);
     }
 
-    public function verificaSenha($senhaFormulario,$senhaBanco): string{
+    public function verificaSenha($senhaFormulario, $senhaBanco): string
+    {
         /* Usamos a função password_verify para COMPARAR as duas senhas: a digitada no formulário e a existente no banco de dados */
-        if(password_verify($senhaFormulario, $senhaBanco)){
+        if (password_verify($senhaFormulario, $senhaBanco)) {
             /* Se forem iguais, mantemos a senha já existente, sem qualquer modificação */
             return $senhaBanco;
         } else {
             /* Se forem DIFERENTES, então a nova senha (ou seja,a que foi digitada no formulário) DEVE ser codificada. */
             return $this->codificaSenha($senhaFormulario);
         };
-
-        
     }
 
 
@@ -73,27 +72,27 @@ class Usuario
             $consulta->execute();
             $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
-            die("Erro ao carregar dados: " .$erro->getMessage());
+            die("Erro ao carregar dados: " . $erro->getMessage());
         }
         return $resultado;
     }
 
     // UPDATE de usuário 
-    public function atualizar(){
+    public function atualizar()
+    {
         $sql = "UPDATE usuarios SET nome = :nome, email = :email , senha = :senha, tipo = :tipo WHERE id = :id";
 
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindValue(":id",$this->id,PDO::PARAM_INT);
-            $consulta->bindValue(":nome",$this->nome,PDO::PARAM_STR);
-            $consulta->bindValue(":email",$this->email,PDO::PARAM_STR);
-            $consulta->bindValue(":senha",$this->senha,PDO::PARAM_STR);
-            $consulta->bindValue(":tipo",$this->tipo,PDO::PARAM_STR);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
+            $consulta->bindValue(":nome", $this->nome, PDO::PARAM_STR);
+            $consulta->bindValue(":email", $this->email, PDO::PARAM_STR);
+            $consulta->bindValue(":senha", $this->senha, PDO::PARAM_STR);
+            $consulta->bindValue(":tipo", $this->tipo, PDO::PARAM_STR);
             $consulta->execute();
         } catch (Exception $erro) {
-            die("Erro ao Atualizar usuário: ".$erro->getMessage());
+            die("Erro ao Atualizar usuário: " . $erro->getMessage());
         }
-
     }
 
 
@@ -111,20 +110,33 @@ class Usuario
     }
 
 
-    public function excluir():void{
+    public function excluir(): void
+    {
         $sql = "DELETE FROM usuarios WHERE id = :id";
 
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindValue(":id",$this->id,PDO::PARAM_INT);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
             $consulta->execute();
         } catch (Exception $erro) {
-            die("Erro ao Excluir usuário: ".$erro->getMessage());
+            die("Erro ao Excluir usuário: " . $erro->getMessage());
         }
-
     }
-    
 
+    /* Método para buscar no banco um usuário atráves do e-mail */
+    public function buscar(): array | bool // tipos de saídas PHP +7.4
+    {
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":email", $this->email, PDO::PARAM_STR);
+            $consulta->execute();
+            $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao buscar usuário: " . $erro->getMessage());
+        }
+        return $resultado;
+    }
 
     public function getId(): int
     {
@@ -134,7 +146,7 @@ class Usuario
 
     public function setId(int $id): self
     {
-        $this->id = filter_var($id , FILTER_SANITIZE_NUMBER_INT);
+        $this->id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
         return $this;
     }

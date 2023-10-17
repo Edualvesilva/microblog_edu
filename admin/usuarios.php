@@ -4,7 +4,7 @@ use Microblog\Usuario;
 use Microblog\Utilitarios;
 $usuario = new Usuario;
 
-/* Como $usuario retorna algo ele precosa ser colocado em uma variável */
+/* Como $usuario retorna algo ele precisa ser colocado em uma variável */
 $listaUsuarios = $usuario->listar();
 ?>
 

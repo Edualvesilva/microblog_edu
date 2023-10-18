@@ -2,7 +2,6 @@
 
 namespace Microblog;
 
-use Error;
 use PDO, Exception;
 
 class Usuario
@@ -102,8 +101,8 @@ class Usuario
             $consulta = $this->conexao->prepare($sql);
             $consulta->execute();
             $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
-        } catch (Error $erro) {
-            die("Erro ao inserir usuário: " . $erro->getMessage());
+        } catch (Exception $erro) {
+            die("Erro ao ler usuários: " . $erro->getMessage());
         }
         return $resultado;
     }

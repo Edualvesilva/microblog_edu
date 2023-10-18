@@ -1,5 +1,15 @@
 <?php 
 require_once "../inc/cabecalho-admin.php";
+use Microblog\Categoria;
+$categoria = new Categoria;
+$categoria->setId($_SESSION["id"]);
+$recebeCategoria = $categoria->lerUm();
+
+if(isset($_POST["atualizar"])){
+	$categoria->setNome($_POST["nome"]);
+	$categoria->atualizar();
+	header("location:categorias.php");
+}
 ?>
 
 
@@ -14,7 +24,7 @@ require_once "../inc/cabecalho-admin.php";
 
 			<div class="mb-3">
 				<label class="form-label" for="nome">Nome:</label>
-				<input class="form-control" type="text" id="nome" name="nome" required>
+				<input class="form-control" type="text" id="nome" name="nome" value="<?=$recebeCategoria["nome"]?>" required>
 			</div>
 			
 			<button class="btn btn-primary" name="atualizar"><i class="bi bi-arrow-clockwise"></i> Atualizar</button>

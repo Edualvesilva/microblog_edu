@@ -27,7 +27,7 @@ if (isset($_GET["campos_obrigatorios"])) {
 			<?php } ?>
 			<div class="mb-3">
 				<label for="email" class="form-label">E-mail:</label>
-				<input class="form-control" type="email" id="email" name="email">
+				<input class="form-control" type="email" id="email" name="email" autocomplete="off">
 			</div>
 			<div class="mb-3">
 				<label for="senha" class="form-label">Senha:</label>

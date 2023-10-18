@@ -60,7 +60,6 @@ class Usuario
     }
 
 
-
     // SELECT de Usuário 
     public function listarUM(): array
     {

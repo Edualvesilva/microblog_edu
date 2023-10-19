@@ -20,6 +20,11 @@ $listarCategoria = $categoria->ler();
 			Inserir nova categoria</a>
 		</p>
 				
+		<?php if(isset($_GET["categoria_apagada"])){?>
+            <p class="alert alert-warning">Categoria Apagada!!</p>
+        <?php } ?>
+
+
 		<div class="table-responsive">
 		
 			<table class="table table-hover">

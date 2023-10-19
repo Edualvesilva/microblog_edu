@@ -4,7 +4,7 @@ use Microblog\Categoria;
 $categoria = new Categoria;
 $categoria->setId($_GET["id"]);
 $recebeCategoria = $categoria->lerUm();
-
+$sessao->verificaAcessoAdmin();
 if(isset($_POST["atualizar"])){
 	$categoria->setNome($_POST["nome"]);
 	$categoria->atualizar();

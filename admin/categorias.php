@@ -2,7 +2,7 @@
 require_once "../inc/cabecalho-admin.php";
 use Microblog\Categoria;
 $categoria = new Categoria;
-
+$sessao->verificaAcessoAdmin();
 $listarCategoria = $categoria->ler();
 ?>
 

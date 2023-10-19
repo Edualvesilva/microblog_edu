@@ -4,7 +4,7 @@ require_once "../vendor/autoload.php";
 use Microblog\ControleDeAcesso;
 $sessao = new ControleDeAcesso;
 $sessao->verificaAcesso();
-
+$sessao->verificaAcessoAdmin();
 use Microblog\Categoria;
 $categoria = new Categoria;
 $categoria->setId($_GET["id"]);

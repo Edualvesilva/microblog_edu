@@ -2,7 +2,7 @@
 require_once "../inc/cabecalho-admin.php";
 use Microblog\Categoria;
 $categoria = new Categoria;
-$categoria->setId($_SESSION["id"]);
+$categoria->setId($_GET["id"]);
 $recebeCategoria = $categoria->lerUm();
 
 if(isset($_POST["atualizar"])){

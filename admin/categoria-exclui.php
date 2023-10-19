@@ -7,7 +7,8 @@ $sessao->verificaAcesso();
 
 use Microblog\Categoria;
 $categoria = new Categoria;
-$categoria->setId($_SESSION["id"]);
+$categoria->setId($_GET["id"]);
 $categoria->excluir();
-header("location:categorias.php");
+
+header("location:categorias.php?categoria_apagada");
 ?>

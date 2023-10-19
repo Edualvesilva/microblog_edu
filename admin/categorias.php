@@ -36,12 +36,12 @@ $listarCategoria = $categoria->ler();
 						<td> <?=$itemCategoria["nome"]?></td>
 						<td class="text-center">
 							<a class="btn btn-warning" 
-							href="categoria-atualiza.php?<?=$itemCategoria["id"]?>">
+							href="categoria-atualiza.php?id=<?=$itemCategoria["id"]?>">
 							<i class="bi bi-pencil"></i> Atualizar
 							</a>
 						
 							<a class="btn btn-danger excluir" 
-							href="categoria-exclui.php?<?=$itemCategoria["id"]?>">
+							href="categoria-exclui.php?id=<?=$itemCategoria["id"]?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
 						</td>

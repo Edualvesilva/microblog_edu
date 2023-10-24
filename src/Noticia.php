@@ -42,7 +42,7 @@ final class Noticia {
 
             /* Aqui, primeiro chamamos os getters de ID do Usuario e de categoria, para só depois associar os valores aos parâmetros da consulta SQL. Isso é possível devido á associação entre as classes. */
             $consulta->bindValue(":usuario_id",$this->usuario->getId(),PDO::PARAM_INT);
-            $consulta->bindValue("categorias_id",$this->categoria->getId(),PDO::PARAM_INT);
+            $consulta->bindValue(":categoria_id",$this->categoria->getId(),PDO::PARAM_INT);
             $consulta->execute();
 
         } catch (Exception $erro) {
@@ -55,7 +55,7 @@ final class Noticia {
     public function UploadFotos(array $arquivo):void{
 
         // Definindo o tipo de dados validos
-        $tiposValidos = ["image/png, image/jpeg, image/gif, image/svg+xml"];
+        $tiposValidos = ["image/png", "image/jpeg", "image/gif", "image/svg+xml"];
         
         // Verificando se o arquivo NÃO É um dos tipos válidos
         if(!in_array($arquivo["type"],$tiposValidos)){

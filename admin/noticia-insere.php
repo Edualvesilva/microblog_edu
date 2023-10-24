@@ -18,12 +18,20 @@ if (isset($_POST["inserir"])) {
 	// ID da categoria escolhida para a notícia
 	$noticia->categoria->setId($_POST["categoria"]);
 
-	/* Sobre a imagem
-	- Capturar o arquivo de imagem e enviar para ao servidor 
-	- Capturar o nome/extensão e enviar para o banco de dados*/
-
+	/*  Sobre a imagem */
+	
+	// - Capturar o arquivo de imagem 
 	$imagem = $_FILES["imagem"];
-	Utilitarios::dump($imagem);
+
+	// - Capturar o nome/extensão e enviar para o banco de dados*/
+	$noticia->UploadFotos($imagem);
+
+	// Capturar o nome/extensão e enviar para o Banco de dados
+	$noticia->setImagem($imagem["name"]);
+
+	// Executar no banco
+	$noticia->inserir();
+	header("location:noticias.php");
 }
 ?>
 

@@ -18,12 +18,11 @@ if (isset($_POST["inserir"])) {
 
 	// ID da categoria escolhida para a notícia
 	$noticia->categoria->setId($_POST["categoria"]);
-	
+
 	/* Sobre a imagem
 	- Capturar o arquivo de imagem e enviar para ao servidor 
 	- Capturar o nome/extensão e enviar para o banco de dados*/
 
-	Utilitarios::dump($noticia);
 }
 ?>
 
@@ -35,7 +34,8 @@ if (isset($_POST["inserir"])) {
 			Inserir nova notícia
 		</h2>
 
-		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir">
+		<!-- Para que o formulário aceite arquivos (upload), é necessário habilitar o atributo enctype -->
+		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" enctype="multipart/form-data">
 
 			<div class="mb-3">
 				<label class="form-label" for="categoria">Categoria:</label>
@@ -66,6 +66,7 @@ if (isset($_POST["inserir"])) {
 			<div class="mb-3">
 				<label class="form-label" for="imagem" class="form-label">Selecione uma imagem:</label>
 				<input required class="form-control" type="file" id="imagem" name="imagem" accept="image/png, image/jpeg, image/gif, image/svg+xml">
+				<!-- Mime-Type -->
 			</div>
 
 			<div class="mb-3">

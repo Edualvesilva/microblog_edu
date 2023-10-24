@@ -50,6 +50,32 @@ final class Noticia {
         }
     }
    
+    /* Método para upload de fotos */
+
+    public function UploadFotos(array $arquivo):void{
+
+        // Definindo o tipo de dados validos
+        $tiposValidos = ["image/png, image/jpeg, image/gif, image/svg+xml"];
+        
+        // Verificando se o arquivo NÃO É um dos tipos válidos
+        if(!in_array($arquivo["type"],$tiposValidos)){
+            /* Alertamos o usuário e o fazemos voltar para o form */
+            die("<script>alert('Formato inválido');
+                history.back();</script>");
+        }
+        // Acessando APENAS o nome/extensão do arquivo
+        $nome = $arquivo["name"];
+
+        // Acessando os dados de acesso/armazenamento temporários
+        $temporario = $arquivo["tmp_name"];
+
+        // Definindo o local/pasta de destino das imagens no site
+        $pastaFinal = "../imagens/".$nome;
+
+        // Movemos/Enviamos  da área temporária para a final/destino
+        move_uploaded_file($temporario,$pastaFinal);
+    }
+
     public function getId(): int
     {
         return $this->id;

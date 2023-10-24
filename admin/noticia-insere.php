@@ -3,7 +3,6 @@ require_once "../inc/cabecalho-admin.php";
 
 use Microblog\Noticia;
 use Microblog\Utilitarios;
-
 $noticia = new Noticia;
 $recebeCategoria = $noticia->categoria->ler();
 
@@ -23,6 +22,8 @@ if (isset($_POST["inserir"])) {
 	- Capturar o arquivo de imagem e enviar para ao servidor 
 	- Capturar o nome/extensão e enviar para o banco de dados*/
 
+	$imagem = $_FILES["imagem"];
+	Utilitarios::dump($imagem);
 }
 ?>
 

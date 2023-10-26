@@ -41,7 +41,7 @@ $listaCategoria = $noticia->categoria->ler();
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?php foreach($listaCategoria as $itemCategoria){ ?>
-            <li><a class="dropdown-item" href="noticias-por-categoria.php"><?=$itemCategoria["nome"]?></a></li>
+            <li><a class="dropdown-item" href="noticias-por-categoria.php?id=<?=$itemCategoria["id"]?>"><?=$itemCategoria["nome"]?></a></li>
           <?php }?>
           </ul>
         </li>

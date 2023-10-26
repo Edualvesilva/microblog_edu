@@ -28,7 +28,7 @@ if(isset($_POST["atualizar"])){
     }
     else {
     /* Caso contrário, vamos pegar a referência (nome/extensão) da nova imagem, fazer o upload do novo arquivo e enviar a referência para o objeto usando o Setter */
-        $noticia->UploadFotos($_POST["imagem"]);
+        $noticia->UploadFotos($_FILES["imagem"]);
         $noticia->setImagem($_FILES["imagem"]["name"]);
     }
 

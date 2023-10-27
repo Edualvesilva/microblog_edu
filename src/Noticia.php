@@ -235,11 +235,26 @@ final class Noticia
 
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindValue(":categoria_id",$this->categoria->getId(),PDO::PARAM_INT);
+            $consulta->bindValue(":categoria_id", $this->categoria->getId(), PDO::PARAM_INT);
             $consulta->execute();
             $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
-            die("Erro ao carregar notícias da categoria: ".$erro->getMessage());
+            die("Erro ao carregar notícias da categoria: " . $erro->getMessage());
+        }
+        return $resultado;
+    }
+
+    // resultados.php
+    public function busca(): array
+    {
+        $sql = "SELECT id,titulo,data,resumo FROM noticias WHERE titulo LIKE :termo OR resumo LIKE :termo OR texto LIKE :termo ORDER BY data DESC";
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":termo","%".$this->getTermo()."%",PDO::PARAM_STR);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao Buscar: " . $erro->getMessage());
         }
         return $resultado;
     }

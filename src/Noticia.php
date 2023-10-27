@@ -152,7 +152,6 @@ final class Noticia
         }
     }
 
-
     /* Método para upload de fotos */
 
     public function UploadFotos(array $arquivo): void
@@ -181,47 +180,69 @@ final class Noticia
     }
 
     /* Métodos da área pública */
-    public function listarDestaques():array{
+    public function listarDestaques(): array
+    {
         $sql = "SELECT id,titulo,resumo,imagem FROM noticias WHERE destaque =:destaque ORDER BY data DESC";
 
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindValue(":destaque",$this->destaque,PDO::PARAM_STR);
+            $consulta->bindValue(":destaque", $this->destaque, PDO::PARAM_STR);
             $consulta->execute();
             $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
-            die("Erro ao Listar Destaques: ".$erro->getMessage());
+            die("Erro ao Listar Destaques: " . $erro->getMessage());
         }
         return $resultado;
     }
 
-    public function listarTodas():array{
+    public function listarTodas(): array
+    {
         $sql = "SELECT id,data,titulo,resumo FROM noticias ORDER BY data DESC";
         try {
             $consulta = $this->conexao->prepare($sql);
             $consulta->execute();
             $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
-            die("Erro ao Carregar Notícias: ".$erro->getMessage());
+            die("Erro ao Carregar Notícias: " . $erro->getMessage());
         }
         return $resultado;
     }
 
     // noticia.php
-    public function verDetalhes():array{
+    public function verDetalhes(): array
+    {
         $sql = "SELECT noticias.id,noticias.titulo,noticias.data,usuarios.nome as autor,noticias.texto,noticias.imagem 
         FROM noticias INNER JOIN usuarios ON noticias.usuario_id = usuarios.id WHERE noticias.id = :id";
-        
+
         try {
             $consulta = $this->conexao->prepare($sql);
-            $consulta->bindValue(":id",$this->id,PDO::PARAM_INT);
+            $consulta->bindValue(":id", $this->id, PDO::PARAM_INT);
             $consulta->execute();
             $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
         } catch (Exception $erro) {
-            die("Erro ao Ver Detalhes: ".$erro->getMessage());
+            die("Erro ao Ver Detalhes: " . $erro->getMessage());
         }
         return $resultado;
-    } 
+    }
+
+    // noticias-por-categoria.php
+    public function listarCategoria()
+    {
+        $sql = "SELECT noticias.id,noticias.titulo,noticias.data,noticias.resumo,usuarios.nome AS autor,categorias.nome AS categoria
+        FROM noticias INNER JOIN usuarios ON noticias.usuario_id = usuarios.id
+        INNER JOIN categorias ON noticias.categoria_id = categorias.id
+        WHERE noticias.categoria_id = :categoria_id";
+
+        try {
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":categoria_id",$this->categoria->getId(),PDO::PARAM_INT);
+            $consulta->execute();
+            $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $erro) {
+            die("Erro ao carregar notícias da categoria: ".$erro->getMessage());
+        }
+        return $resultado;
+    }
 
     public function getId(): int
     {

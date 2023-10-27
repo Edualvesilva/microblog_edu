@@ -1,5 +1,11 @@
 <?php
+/* Output Buffer (Gerenciamento de memória de saída) */
+ob_start();
 require_once "vendor/autoload.php";
+use Microblog\Noticia;
+
+$noticia = new Noticia;
+$listaCategoria = $noticia->categoria->ler();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
@@ -36,9 +42,9 @@ require_once "vendor/autoload.php";
             Categorias
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="noticias-por-categoria.php">Ciência</a></li>
-            <li><a class="dropdown-item" href="noticias-por-categoria.php">Educação</a></li>
-            <li><a class="dropdown-item" href="noticias-por-categoria.php">Tecnologia</a></li>
+            <?php foreach($listaCategoria as $itemCategoria){ ?>
+            <li><a class="dropdown-item" href="noticias-por-categoria.php?id=<?=$itemCategoria["id"]?>"><?=$itemCategoria["nome"]?></a></li>
+          <?php }?>
           </ul>
         </li>
         <li class="nav-item">
@@ -46,8 +52,8 @@ require_once "vendor/autoload.php";
         </li>
       </ul>
 
-      <form autocomplete="off" class="d-flex" action="resultados.php" method="POST">
-        <input class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Pesquise aqui">
+      <form autocomplete="off" class="d-flex" action="resultados.php" method="GET">
+        <input name="busca" class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Pesquise aqui">
         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">OK</button>
       </form>
     </div>

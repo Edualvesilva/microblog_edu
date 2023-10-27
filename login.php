@@ -71,5 +71,6 @@ if (isset($_GET["campos_obrigatorios"])) {
 
 
 <?php
+require_once "inc/todas.php";
 require_once "inc/rodape.php";
 ?>

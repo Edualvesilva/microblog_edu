@@ -55,13 +55,13 @@ $listaCategoria = $noticia->categoria->ler();
             </li>
           </ul>
 
-          <div class="postion-relative">
+          <div class="position-relative">
             <form autocomplete="off" class="d-flex" action="resultados.php" method="POST" onsubmit="return false" id="form-busca">
               <input id="campo-busca" name="busca" class="form-control me-2" type="search" placeholder="Pesquise aqui" aria-label="Pesquise aqui">
 
-                  <div id="resultados" class="mt-3 position-absolute container bg-white shadow-lg p-3"></div>
-
+              
             </form>
+            <div id="resultados" class="mt-3 position-absolute container bg-white shadow-lg p-3"></div>
           </div>
         </div>
       </div>
